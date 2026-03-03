@@ -1,0 +1,13 @@
+# Dependabot: keep GitHub Actions and (if added) other deps up to date.
+# https://docs.github.com/en/code-security/dependabot
+
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    commit-message:
+      prefix: "deps(ci)"
+    labels:
+      - "dependencies"

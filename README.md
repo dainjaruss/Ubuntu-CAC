@@ -475,9 +475,16 @@ Existing `.cac.bak` files are never overwritten; the rollback scripts simply cop
   shellcheck scripts/*.sh lib/common.sh setup-cac.sh cac-setup update-dod-certs.sh
   ```
 
+- **CI** (GitHub Actions) runs on push and pull requests to `main`: shellcheck, bash syntax check, PAM script `--dry-run` smoke tests, and Markdown lint. Ensure your branch passes before merging.
+
 - **Preserve invariants** documented in the refactoring specs, especially:
   - Scripts remain idempotent and safe to re-run.
   - Backups use the `.cac.bak` suffix and are never overwritten.
   - `sudo ./setup-cac.sh`, `sudo ./setup-cac.sh --map-user <user>`, and `sudo ./setup-cac.sh --rollback-pam` continue to work as documented.
   - System paths and constants are referenced via `lib/common.sh` variables, not hardcoded strings in individual scripts.
 
+---
+
+### License
+
+This project is licensed under the MIT License — see [LICENSE](LICENSE) for details.
