@@ -8,9 +8,11 @@ Configure browsers to use your CAC via **automation first**; use manual steps on
 
 1. **Interactive menu:** `./cac-setup` → option **5** (Configure Firefox PKCS#11).
 2. **Direct script:**
+
    ```bash
    sudo ./scripts/cac-configure-browser-firefox.sh
    ```
+
    The script detects Snap vs APT, connects `firefox:pcscd` when needed, and writes managed `policies.json`. Safe to re-run.
 
 ### Manual fallback — Firefox
@@ -28,9 +30,11 @@ Use only when automation does not apply (e.g. locked-down `policies.json`, non-s
 
 1. **Interactive menu:** `./cac-setup` → option **6** (Configure Chromium / Chrome PKCS#11).
 2. **Direct script:**
+
    ```bash
    sudo ./scripts/cac-configure-browser-chromium.sh
    ```
+
    Registers OpenSC PKCS#11 in per-user NSS DBs; runs as root but operates as `$SUDO_USER`. Safe to re-run.
 
 ### Manual fallback — Chromium/Chrome

@@ -10,7 +10,7 @@ The refactored tool splits the original monolithic `setup-cac.sh` into a small s
 
 ---
 
-### Repository Layout
+## Repository Layout
 
 - `cac-setup` — interactive, menu-driven wrapper for running individual setup and utility steps.
 - `setup-cac.sh` — thin non-interactive orchestrator that runs all major steps in order; still supports `--map-user` and `--rollback-pam` for backward compatibility.
@@ -30,7 +30,7 @@ The refactored tool splits the original monolithic `setup-cac.sh` into a small s
 
 ---
 
-### Prerequisites
+## Prerequisites
 
 - Ubuntu or Debian derivative with:
   - APT package manager available.
@@ -41,7 +41,7 @@ The refactored tool splits the original monolithic `setup-cac.sh` into a small s
 
 ---
 
-### Quick Start
+## Quick Start
 
 1. **Clone or copy this repo onto the target machine.**
 
@@ -117,7 +117,7 @@ The refactored tool splits the original monolithic `setup-cac.sh` into a small s
 
 ---
 
-### Offline vs. Online Install Modes
+## Offline vs. Online Install Modes
 
 The setup script is designed to be **offline‑capable by default**:
 
@@ -138,9 +138,9 @@ The setup script is designed to be **offline‑capable by default**:
 
 ---
 
-### Browser configuration (Firefox and Chromium/Chrome)
+## Browser configuration (Firefox and Chromium/Chrome)
 
-#### Verify reader and card
+### Verify reader and card
 
 After running `setup-cac.sh`, confirm that the reader and CAC are visible to the smartcard stack:
 
@@ -164,7 +164,7 @@ You should see at least one **slot** with a **token label** (your name or simila
 
 ---
 
-#### Firefox (automation-first)
+### Firefox (automation-first)
 
 In most cases you should let the toolkit configure Firefox for CAC automatically.
 
@@ -192,7 +192,7 @@ In most cases you should let the toolkit configure Firefox for CAC automatically
 
    This is idempotent and safe to re-run if you change Firefox variants or update OpenSC.
 
-##### Manual fallback — Firefox
+#### Manual fallback — Firefox
 
 Use the manual steps below **only** when automation cannot be used or does not apply, for example:
 
@@ -241,7 +241,7 @@ If you see a token and get a PIN prompt but the browser shows **“connection re
 
 ---
 
-#### Chromium / Chrome (automation-first)
+### Chromium / Chrome (automation-first)
 
 Chromium-based browsers are also configured automatically in the common case.
 
@@ -269,7 +269,7 @@ Chromium-based browsers are also configured automatically in the common case.
 
    You can re-run this safely after browser profile changes or when adding new users.
 
-##### Manual fallback — Chromium/Chrome
+#### Manual fallback — Chromium/Chrome
 
 Use the manual steps below **only** when the automated script cannot be used (for example, highly customized profile layouts, read-only home directories, or policy-managed NSS DBs that the script intentionally avoids modifying).
 
@@ -308,7 +308,7 @@ If the browser does not offer certificates from your CAC, first re-check `pkcs11
 
 ---
 
-### PAM (sudo + SDDM) notes
+## PAM (sudo + SDDM) notes
 
 This setup enables `pam_pkcs11` via `/etc/pam.d/common-auth`. If CAC auth does not match your local username automatically, you can add mappings in:
 
@@ -317,7 +317,7 @@ This setup enables `pam_pkcs11` via `/etc/pam.d/common-auth`. If CAC auth does n
 
 They are created if missing, but may be empty by default.
 
-#### Generate a digest mapping automatically
+### Generate a digest mapping automatically
 
 With your CAC inserted, run:
 
@@ -349,7 +349,7 @@ Both flows are idempotent: re-running the mapping for the same user and certific
 
 ---
 
-### Diagnostics
+## Diagnostics
 
 The `scripts/cac-diagnose.sh` script (also available as menu option `8` in `./cac-setup` or via `./cac-setup --diagnose`) generates a **read-only** health report. It covers eight categories:
 
@@ -379,7 +379,7 @@ or via the interactive wrapper:
 
 ---
 
-### Per-script reference
+## Per-script reference
 
 All per-feature scripts live under `scripts/` and source `lib/common.sh`. Each is safe to re-run (idempotent) and can also be invoked via the `cac-setup` menu.
 
@@ -399,7 +399,7 @@ The `update-dod-certs.sh` script remains a standalone entry point for fetching a
 
 ---
 
-### Troubleshooting
+## Troubleshooting
 
 - **No smartcard reader or token detected**
   - Run `./scripts/cac-diagnose.sh` and check sections **[1] pcscd Service**, **[2] Smartcard Readers**, and **[3] CAC Token & Certificates**.
@@ -422,7 +422,7 @@ The `update-dod-certs.sh` script remains a standalone entry point for fetching a
 
 ---
 
-### Current Status
+## Current Status
 
 - **Implemented:**
   - Smartcard daemon and middleware installation (`pcscd`, `libccid`, `opensc`, `libnss3-tools`, `libpam-pkcs11`) via `scripts/cac-install-middleware.sh`.
@@ -443,7 +443,7 @@ All scripts are written to be **idempotent and re-runnable**. They back up exist
 
 ---
 
-### Rollback
+## Rollback
 
 If a PAM change leaves your system in an undesirable state (for example, CAC auth issues or unexpected prompts), you can restore the previous configuration:
 
@@ -465,7 +465,7 @@ Existing `.cac.bak` files are never overwritten; the rollback scripts simply cop
 
 ---
 
-### Contributing
+## Contributing
 
 - **Shared utilities live in `lib/common.sh`**: add new shared constants or helpers there rather than duplicating logic across scripts.
 - **Per-feature behavior belongs in `scripts/`**: when adding functionality, prefer creating a new focused script or extending an existing one rather than growing `setup-cac.sh`.
@@ -485,6 +485,6 @@ Existing `.cac.bak` files are never overwritten; the rollback scripts simply cop
 
 ---
 
-### License
+## License
 
 This project is licensed under the MIT License — see [LICENSE](LICENSE) for details.
