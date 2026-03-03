@@ -1,0 +1,63 @@
+# CI for Ubuntu-CAC: lint, syntax check, and safe script checks.
+# Runs on push/PR to main; no system changes (dry-run only where supported).
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    name: Lint (shellcheck + syntax)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install ShellCheck
+        run: sudo apt-get update -qq && sudo apt-get install -y shellcheck
+
+      - name: ShellCheck
+        run: |
+          shellcheck \
+            setup-cac.sh cac-setup update-dod-certs.sh \
+            lib/common.sh \
+            scripts/cac-*.sh \
+            --severity=warning
+
+      - name: Bash syntax check
+        run: |
+          for f in setup-cac.sh cac-setup update-dod-certs.sh lib/common.sh scripts/*.sh; do
+            bash -n "$f" || { echo "Syntax error in $f"; exit 1; }
+          done
+
+  script-smoke:
+    name: Script smoke (help / dry-run)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: update-dod-certs.sh --help
+        run: ./update-dod-certs.sh --help
+
+      # PAM scripts require root and read from /dev/tty; use script(1) to provide a PTY.
+      - name: PAM sudo --dry-run
+        run: script -q -c "printf '\n' | sudo ./scripts/cac-configure-pam-sudo.sh --dry-run" /dev/null
+
+      - name: PAM SDDM --dry-run
+        run: script -q -c "printf '\n' | sudo ./scripts/cac-configure-pam-sddm.sh --dry-run" /dev/null
+
+  markdown:
+    name: Markdown
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check Markdown (markdownlint)
+        uses: DavidAnson/markdownlint-cli2-action@v18
+        with:
+          globs: |
+            README.md
+            wiki/*.md
