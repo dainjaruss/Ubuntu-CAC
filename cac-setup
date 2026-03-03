@@ -1,0 +1,99 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# shellcheck source=lib/common.sh
+if [[ -f "${SCRIPT_DIR}/lib/common.sh" ]]; then
+  . "${SCRIPT_DIR}/lib/common.sh"
+else
+  info() {
+    printf '[INFO] %s\n' "$*" >&2
+  }
+  warn() {
+    printf '[WARN] %s\n' "$*" >&2
+  }
+  error() {
+    printf '[ERROR] %s\n' "$*" >&2
+  }
+fi
+
+trap 'exit 0' INT
+
+run_menu() {
+  while true; do
+    cat <<EOF
+CAC Setup Tool — DoD CAC on Ubuntu/Debian (KDE/SDDM)
+====================================================
+  1) Install / verify smartcard middleware
+  2) Update DoD PKI CA bundle
+  3) Configure PAM for sudo
+  4) Configure PAM for SDDM (graphical login)
+  5) Configure Firefox PKCS#11 (Snap / APT)
+  6) Configure Chromium / Chrome PKCS#11
+  7) Map CAC certificate → Linux user
+  8) Run diagnostics (read-only system health report)
+  9) Rollback PAM changes
+  q) Quit
+EOF
+
+    printf 'Enter selection: '
+    read -r choice || exit 0
+
+    case "${choice}" in
+      1)
+        sudo "${SCRIPT_DIR}/scripts/cac-install-middleware.sh"
+        ;;
+      2)
+        sudo "${SCRIPT_DIR}/scripts/cac-update-dod-pki.sh"
+        ;;
+      3)
+        sudo "${SCRIPT_DIR}/scripts/cac-configure-pam-sudo.sh"
+        ;;
+      4)
+        sudo "${SCRIPT_DIR}/scripts/cac-configure-pam-sddm.sh"
+        ;;
+      5)
+        sudo "${SCRIPT_DIR}/scripts/cac-configure-browser-firefox.sh"
+        ;;
+      6)
+        sudo "${SCRIPT_DIR}/scripts/cac-configure-browser-chromium.sh"
+        ;;
+      7)
+        printf 'Enter Linux username to map: '
+        read -r map_username || continue
+        if [[ -z "${map_username}" ]]; then
+          warn "Username is required."
+        else
+          sudo "${SCRIPT_DIR}/scripts/cac-map-user.sh" "${map_username}"
+        fi
+        ;;
+      8)
+        "${SCRIPT_DIR}/scripts/cac-diagnose.sh"
+        ;;
+      9)
+        sudo "${SCRIPT_DIR}/scripts/cac-rollback-pam.sh"
+        ;;
+      q|Q)
+        exit 0
+        ;;
+      *)
+        warn "Invalid selection."
+        ;;
+    esac
+
+    printf '\n'
+  done
+}
+
+main() {
+  if [[ "${1:-}" == "--diagnose" ]]; then
+    exec "${SCRIPT_DIR}/scripts/cac-diagnose.sh" "${@:2}"
+  fi
+
+  run_menu
+}
+
+main "$@"
+
