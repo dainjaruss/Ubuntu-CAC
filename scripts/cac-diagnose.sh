@@ -155,18 +155,13 @@ section_dod_ca_trust_stores() {
 
   # pam_pkcs11 cacerts directory
   if [[ -d "${PAM_PKCS11_CACERTS_DIR}" ]]; then
-    local cacerts_glob
     local cacert_count hash_link_count
+    local -a cacerts
 
-    cacerts_glob="${PAM_PKCS11_CACERTS_DIR}"/*.crt
-    if compgen -G "${cacerts_glob}" >/dev/null 2>&1; then
-      # Use an array to count matches safely.
-      # shellcheck disable=SC2206
-      local cacerts=( ${cacerts_glob} )
-      cacert_count="${#cacerts[@]}"
-    else
-      cacert_count=0
-    fi
+    shopt -s nullglob
+    cacerts=( "${PAM_PKCS11_CACERTS_DIR}"/*.crt )
+    cacert_count="${#cacerts[@]}"
+    shopt -u nullglob
 
     hash_link_count="$(find "${PAM_PKCS11_CACERTS_DIR}" -maxdepth 1 -type l 2>/dev/null | wc -l || true)"
 
@@ -177,17 +172,13 @@ section_dod_ca_trust_stores() {
 
   # System DoD CA directory
   if [[ -d "${DOD_CA_SYSTEM_DIR}" ]]; then
-    local system_glob
     local system_count
+    local -a system_certs
 
-    system_glob="${DOD_CA_SYSTEM_DIR}"/*.crt
-    if compgen -G "${system_glob}" >/dev/null 2>&1; then
-      # shellcheck disable=SC2206
-      local system_certs=( ${system_glob} )
-      system_count="${#system_certs[@]}"
-    else
-      system_count=0
-    fi
+    shopt -s nullglob
+    system_certs=( "${DOD_CA_SYSTEM_DIR}"/*.crt )
+    system_count="${#system_certs[@]}"
+    shopt -u nullglob
 
     printf '  ✓ System trust store: %s certificate(s) in %s\n' "${system_count}" "${DOD_CA_SYSTEM_DIR}"
   else
@@ -200,7 +191,6 @@ section_dod_ca_trust_stores() {
 section_user_mapping() {
   printf '[5] User Mapping\n'
 
-  local show_map
   show_map() {
     local label="$1"
     local path="$2"
@@ -245,7 +235,6 @@ section_user_mapping() {
 section_pam_stacks() {
   printf '[6] PAM Stacks\n'
 
-  local describe_file
   describe_file() {
     local label="$1"
     local path="$2"
