@@ -12,6 +12,8 @@ sudo ./scripts/cac-diagnose.sh
 
 Or via the menu: `./cac-setup` → option **8**, or `./cac-setup --diagnose`.
 
+![Diagnostics output](images/diagnostics-output.png)
+
 ## What it checks
 
 1. **pcscd** — Smartcard daemon status.

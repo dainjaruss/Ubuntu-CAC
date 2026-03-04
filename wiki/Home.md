@@ -20,6 +20,7 @@ This wiki documents the **Ubuntu-CAC** toolkit: a modular, idempotent setup for 
 | [Script Reference](Script-Reference) | All scripts under `scripts/` and how to run them. |
 | [Troubleshooting](Troubleshooting) | Common issues and fixes. |
 | [Rollback](Rollback) | Restoring PAM configuration. |
+| [Screenshot Guide](Screenshot-Guide) | Step-by-step list of screenshots to capture (filename, command or UI step, what to show). |
 
 ## Entry points
 
