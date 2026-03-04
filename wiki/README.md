@@ -2,6 +2,20 @@
 
 The markdown files in this directory are the source for the [GitHub wiki](https://github.com/<NAME>jaruss/Ubuntu-CAC/wiki).
 
+## Adding screenshots
+
+Screenshots are **linked to specific steps** in the wiki. Use the detailed capture guide so you know exactly what to run and what to capture.
+
+1. Open **[Screenshot-Guide.md](Screenshot-Guide)** (in the wiki folder or on the wiki after deploy). It lists every screenshot with:
+   - **Exact filename** to save (e.g. `quick-start-cac-setup-menu.png`)
+   - **Wiki page and step** where it appears
+   - **What to run** (command or menu/UI path) to get to that step
+   - **When to capture** and **what should be visible** in the shot
+2. For each screenshot: run the action described, capture the screen, and save the file in **`wiki/images/`** with the exact filename from the guide.
+3. Run `./scripts/deploy-wiki.sh` from the repo root to push pages and images to the GitHub wiki.
+
+The wiki markdown already embeds `![...](images/filename.png)` at the right steps; you only add the image files with the correct names.
+
 ## Publish the wiki
 
 1. **Initialize the wiki on GitHub** (one-time, if not already done):

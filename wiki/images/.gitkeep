@@ -1,0 +1,5 @@
+# Screenshot images for the wiki. Filenames must match the guide.
+#
+# See wiki/Screenshot-Guide.md for the full list: exact filename, which step
+# or script/menu action to run, and what to capture. Save images here, then
+# run ./scripts/deploy-wiki.sh from the repo root to publish.

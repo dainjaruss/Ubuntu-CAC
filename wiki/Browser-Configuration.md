@@ -22,7 +22,12 @@ Use only when automation does not apply (e.g. locked-down `policies.json`, non-s
 - Connect Snap interface: `sudo snap connect firefox:pcscd`
 - In Firefox: **Settings → Privacy & Security → Certificates → Security Devices → Load**
   - Module filename (Snap): `/var/lib/snapd/hostfs/usr/lib/x86_64-linux-gnu/opensc-pkcs11.so`
+
+  ![Firefox Security Devices – Load module](images/browser-firefox-security-devices.png)
+
 - Set **“When a server requests your personal certificate”** to **“Ask every time”**.
+
+  ![Firefox certificate selection – Ask every time](images/browser-firefox-certificate-ask.png)
 
 ---
 
@@ -44,6 +49,9 @@ Use only when the script cannot be used (e.g. custom profile layout, read-only h
 - Ensure `libnss3-tools` is installed (done by `setup-cac.sh`).
 - Create NSS DB if needed: `mkdir -p "$HOME/.pki/nssdb"` and `certutil -N -d "sql:$HOME/.pki/nssdb" --empty-password`
 - Add module: `modutil -dbdir "sql:$HOME/.pki/nssdb" -add "OpenSC PKCS#11" -libfile /usr/lib/x86_64-linux-gnu/opensc-pkcs11.so -force`
+
+  ![Chromium/Chrome – modutil add PKCS#11](images/browser-chromium-modutil.png)
+
 - For Chrome profiles (e.g. `~/.config/google-chrome/Default`), run the same `modutil` with that `-dbdir`.
 
 If the browser still does not offer CAC certs, run [Diagnostics](Diagnostics) and re-run the browser script or check the correct NSS DB for your profile.

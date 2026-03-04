@@ -13,6 +13,8 @@ With your CAC inserted:
 sudo ./setup-cac.sh --map-user YOUR_USERNAME
 ```
 
+![Map user – setup-cac.sh --map-user](images/pam-map-user.png)
+
 Or directly:
 
 ```bash

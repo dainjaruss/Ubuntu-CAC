@@ -21,6 +21,8 @@
    ./cac-setup
    ```
 
+   ![cac-setup menu](images/quick-start-cac-setup-menu.png)
+
    Run options in order: **1** (middleware) → **2** (DoD PKI) → **3** (sudo PAM) → **4** (SDDM PAM) → **5** (Firefox) → **6** (Chromium/Chrome) → **7** (map user).
 
 4. **Or run everything non-interactively**
@@ -36,5 +38,7 @@
    ```bash
    sudo ./setup-cac.sh --map-user YOUR_USERNAME
    ```
+
+   ![Map CAC to user](images/quick-start-map-user.png)
 
 See [Browser Configuration](Browser-Configuration) for automation-first browser setup and [PAM and User Mapping](PAM-and-User-Mapping) for mapping details.

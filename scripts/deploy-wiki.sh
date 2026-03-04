@@ -31,6 +31,13 @@ fi
 
 echo "Copying wiki pages..."
 cp -v "${WIKI_SOURCE}"/*.md "${WIKI_CLONE}/"
+if [[ -d "${WIKI_SOURCE}/images" ]]; then
+  echo "Copying wiki images..."
+  mkdir -p "${WIKI_CLONE}/images"
+  for f in "${WIKI_SOURCE}"/images/*; do
+    [[ -e "$f" ]] && cp -v "$f" "${WIKI_CLONE}/images/"
+  done
+fi
 
 cd "${WIKI_CLONE}"
 git add -A
