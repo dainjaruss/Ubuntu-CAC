@@ -1,6 +1,6 @@
 # DoD CAC Setup on Ubuntu/Debian (KDE Plasma)
 
-This wiki documents the **Ubuntu-CAC** toolkit: a modular, idempotent setup for using a DoD Common Access Card (CAC) on Ubuntu/Debian with KDE Plasma (SDDM).
+This wiki documents the **Ubuntu-CAC** toolkit: a modular, idempotent setup for using a DoD Common Access Card (CAC) on Ubuntu/Debian with KDE Plasma (SDDM). This toolkit supplements and simply direction for linux and fills in the gap left by MIlitaryCAC leaves. 
 
 ## What you get
 
