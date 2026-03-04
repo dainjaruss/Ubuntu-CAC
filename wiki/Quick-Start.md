@@ -1,7 +1,8 @@
 # Quick Start
- If you ever thought the MilitaryCAC setup instructions on MilitaryCAC.com is lacking or hard to follow, this tool is meant to simply the process. 
- Mac and windows have CAC support built in and the only real chore is installing the DoD certs. But for my Linix users, I hope this fill in the vold.
- 
+
+If you ever thought the MilitaryCAC setup instructions on MilitaryCAC.com is lacking or hard to follow, this tool is meant to simply the process.
+Mac and windows have CAC support built in and the only real chore is installing the DoD certs. But for my Linix users, I hope this fill in the vold.
+
 1. **Clone the repo**
 
    ```bash
