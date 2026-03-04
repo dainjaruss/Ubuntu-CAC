@@ -19,15 +19,17 @@ The wiki markdown already embeds `![...](images/filename.png)` at the right step
 ## Publish the wiki
 
 1. **Initialize the wiki on GitHub** (one-time, if not already done):
-   - Open https://github.com/<NAME>jaruss/Ubuntu-CAC
+   - Open [`https://github.com/<NAME>jaruss/Ubuntu-CAC`](https://github.com/<NAME>jaruss/Ubuntu-CAC)
    - Click **Wiki** → **Create the first page**
    - Use any title (e.g. "Home") and save. This creates the wiki repo.
 
 2. **Deploy from this repo:**
+
    ```bash
    cd /path/to/Ubuntu-CAC   # or CaC
    ./scripts/deploy-wiki.sh
    ```
+
    The script clones the wiki repo, copies `wiki/*.md` into it, commits, and pushes.
 
 To edit the wiki later, either change the files in `wiki/` and run `deploy-wiki.sh` again, or edit pages directly on GitHub.
