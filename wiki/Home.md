@@ -20,6 +20,7 @@ This toolkit supplements and simplifies directions for Linux and fills in the ga
 | [Diagnostics](Diagnostics) | Read-only health report (`cac-diagnose.sh`). |
 | [Script Reference](Script-Reference) | All scripts under `scripts/` and how to run them. |
 | [Troubleshooting](Troubleshooting) | Common issues and fixes. |
+| [Known Issues](Known-Issues) | Critical bugs and hardware/OS-specific workarounds. |
 | [Rollback](Rollback) | Restoring PAM configuration. |
 | [Screenshot Guide](Screenshot-Guide) | Step-by-step list of screenshots to capture (filename, command or UI step, what to show). |
 
