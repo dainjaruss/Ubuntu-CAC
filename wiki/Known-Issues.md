@@ -14,7 +14,7 @@ When `pam_pkcs11` is enabled in `/etc/pam.d/common-auth`, any command requiring 
 
 ```console
 Smart card found.
-Welcome <NAME>.<NAME>.<NAME>.<ID>!
+Welcome <NAME>.<ID>!
 Smart card PIN:
 verifying certificate
 Segmentation fault (core dumped)
@@ -27,7 +27,7 @@ The crash happens **only when a CAC is inserted**. When the card is absent, `pam
 ```console
 ERROR:pam_pkcs11.c:365: no suitable token available
 Error 2308: No smart card found.
-[sudo] password for <NAME>ja:
+[sudo] password for <USERNAME>:
 ```
 
 …and falls through normally to password authentication. **Password access is never lost** — `pam_pkcs11.so` is `sufficient`, not `required`.
@@ -61,7 +61,7 @@ This is a known upstream interaction bug between `libpam-pkcs11`, `opensc`, and 
 ```console
 pam_pkcs11(sudo:auth): init_pkcs11_module() failed: C_GetSlotInfo() failed: 0x00000030
 pam_unix(sudo:auth): conversation failed
-pam_unix(sudo:auth): auth could not identify password for [<NAME>ja]
+pam_unix(sudo:auth): auth could not identify password for [<USERNAME>]
 ```
 
 ---
