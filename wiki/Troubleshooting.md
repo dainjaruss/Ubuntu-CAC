@@ -1,5 +1,7 @@
 # Troubleshooting
 
+> **Ubuntu 24.04 users:** If `sudo` crashes with `verifying certificate` → `Segmentation fault (core dumped)` when your CAC is inserted, see [Known Issues](Known-Issues) for the root cause and fix.
+
 - **No smartcard reader or token detected**
   - Run `./scripts/cac-diagnose.sh` and check **[1] pcscd**, **[2] Smartcard Readers**, **[3] CAC Token & Certificates**.
   - Ensure `pcscd` is active: `sudo systemctl status pcscd`. Reseat card/reader and re-run diagnostics if needed.
