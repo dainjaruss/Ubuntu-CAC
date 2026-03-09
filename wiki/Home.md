@@ -12,7 +12,7 @@ This toolkit supplements and simplifies directions for Linux and fills in the ga
 ## Documentation
 
 | Page | Description |
-|------|-------------|
+| :--- | :--- |
 | [Quick Start](Quick-Start) | Clone, run the menu, and get going. |
 | [Browser Configuration](Browser-Configuration) | Automation-first Firefox and Chromium/Chrome setup; manual fallbacks. |
 | [Offline and Online Modes](Offline-and-Online-Modes) | Using the toolkit with or without network. |
