@@ -21,7 +21,7 @@ echo "Cloning wiki repository..."
 if [[ -d "${WIKI_CLONE}" ]]; then
   rm -rf "${WIKI_CLONE}"
 fi
-if ! git clone https://github.com/<NAME>jaruss/Ubuntu-CAC.wiki.git "${WIKI_CLONE}"; then
+if ! git clone git@github.com:<NAME>jaruss/Ubuntu-CAC.wiki.git "${WIKI_CLONE}"; then
   echo "Clone failed. If the wiki is not initialized yet:" >&2
   echo "  1. Open https://github.com/<NAME>jaruss/Ubuntu-CAC" >&2
   echo "  2. Click Wiki → Create the first page (e.g. title 'Home') and Save" >&2
@@ -40,6 +40,14 @@ if [[ -d "${WIKI_SOURCE}/images" ]]; then
 fi
 
 cd "${WIKI_CLONE}"
+# Ensure we have a git identity in the clone, inheriting from the main repo if needed
+if [[ -z "$(git config --get user.name || true)" ]]; then
+  git config user.name "$(git -C "${REPO_ROOT}" config --get user.name)"
+fi
+if [[ -z "$(git config --get user.email || true)" ]]; then
+  git config user.email "$(git -C "${REPO_ROOT}" config --get user.email)"
+fi
+
 git add -A
 if git diff --staged --quiet; then
   echo "No wiki changes to commit."
